@@ -17,25 +17,28 @@ export default function Navbar() {
 	useEffect(() => {
 		const handleScroll = () => {
 			setScrolled(window.scrollY > 50);
-			if (isOpen) {
-				setIsOpen(false);
-			}
 		};
 
 		window.addEventListener('scroll', handleScroll, { passive: true });
 		return () => window.removeEventListener('scroll', handleScroll);
-	}, [isOpen]);
+	}, []);
 
 	const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
 		e.preventDefault();
-		const targetId = href.replace('#', '');
-		const element = document.getElementById(targetId);
-		if (element) {
-			const navbarHeight = 80;
-			const top = element.getBoundingClientRect().top + window.scrollY - navbarHeight;
-			window.scrollTo({ top, behavior: 'smooth' });
-		}
 		setIsOpen(false);
+
+		const targetId = href.replace('#', '');
+		const scrollToTarget = () => {
+			const element = document.getElementById(targetId);
+			if (element) {
+				const navbarHeight = 80;
+				const top = element.getBoundingClientRect().top + window.scrollY - navbarHeight;
+				window.scrollTo({ top, behavior: 'smooth' });
+			}
+		};
+
+		// Small delay on mobile to let menu close first
+		setTimeout(scrollToTarget, 100);
 	}, []);
 
 	return (
