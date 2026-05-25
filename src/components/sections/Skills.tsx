@@ -31,7 +31,7 @@ export default function Skills() {
 	};
 
 	return (
-		<section id="skills" className="py-12">
+		<section id="skills" className="py-8">
 			<div className="container-width">
 				<SectionTitle title="Skills & Technologies" subtitle="Technologies and tools I work with" />
 

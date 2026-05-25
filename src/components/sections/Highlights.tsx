@@ -31,7 +31,7 @@ export default function Highlights() {
 	};
 
 	return (
-		<section id="highlights" className="py-12">
+		<section id="highlights" className="py-8">
 			<div className="container-width">
 				<SectionTitle title="Engineering Highlights" subtitle="Key achievements and technical contributions" />
 

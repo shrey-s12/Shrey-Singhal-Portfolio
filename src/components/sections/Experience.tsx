@@ -31,7 +31,7 @@ export default function Experience() {
 	};
 
 	return (
-		<section id="experience" className="py-12">
+		<section id="experience" className="py-8">
 			<div className="container-width">
 				<SectionTitle title="Experience" subtitle="Professional journey and contributions" />
 

@@ -23,5 +23,6 @@ export const dsaData: DSAData = {
 		'Backtracking',
 		'Dynamic Programming',
 		'Graphs',
+		'SQL',
 	],
 };

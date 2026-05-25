@@ -28,7 +28,7 @@ export const personalInfo: PersonalInfo = {
 
 	location: 'Noida, Uttar Pradesh, India',
 
-	experience: '1+ Years',
+	experience: '1+ Year',
 
 	email: 'shreynbd@gmail.com',
 
@@ -57,7 +57,7 @@ export const personalInfo: PersonalInfo = {
 		{
 			label: 'Experience',
 			value: '1+',
-			suffix: 'Years',
+			suffix: 'Year',
 		},
 		{
 			label: 'DSA Problems',
@@ -66,7 +66,7 @@ export const personalInfo: PersonalInfo = {
 		},
 		{
 			label: 'Projects',
-			value: '5+',
+			value: '8+',
 			suffix: 'Major',
 		},
 		{

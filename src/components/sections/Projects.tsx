@@ -34,7 +34,7 @@ export default function Projects() {
 	};
 
 	return (
-		<section id="projects" className="py-12">
+		<section id="projects" className="py-8">
 			<div className="container-width">
 				<SectionTitle title="Projects" subtitle="Featured work and side projects" />
 

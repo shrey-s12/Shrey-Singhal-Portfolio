@@ -102,6 +102,33 @@ export interface DSAData {
   topics: string[];
 }
 
+export interface LeetCodeBadge {
+  name: string;
+  icon: string;
+}
+
+export interface LeetCodeStats {
+  username: string;
+  ranking: number;
+  reputation: number;
+  totalSolved: number;
+  totalQuestions: number;
+  easySolved: number;
+  easyTotal: number;
+  mediumSolved: number;
+  mediumTotal: number;
+  hardSolved: number;
+  hardTotal: number;
+  contestRating: number;
+  contestAttended: number;
+  contestGlobalRanking: number;
+  contestTopPercentage: number;
+  badges: LeetCodeBadge[];
+  streak: number;
+  totalActiveDays: number;
+  submissionCalendar: Record<string, number>;
+}
+
 export interface Contact {
   email: string;
   phone: string;

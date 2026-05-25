@@ -30,7 +30,7 @@ export default function Learning() {
 	};
 
 	return (
-		<section id="learning" className="py-12">
+		<section id="learning" className="py-8">
 			<div className="container-width">
 				<SectionTitle title="Learning Journey" subtitle="Currently exploring and growing in" />
 

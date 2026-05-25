@@ -8,7 +8,7 @@ import SectionTitle from '@/components/ui/SectionTitle';
 
 export default function About() {
 	return (
-		<section id="about" className="py-12">
+		<section id="about" className="py-8">
 			<div className="container-width">
 				<SectionTitle title="About Me" subtitle="A brief introduction to who I am" />
 

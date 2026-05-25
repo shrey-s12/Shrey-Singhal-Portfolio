@@ -32,7 +32,7 @@ export default function Education() {
 	};
 
 	return (
-		<section id="education" className="py-12">
+		<section id="education" className="py-8">
 			<div className="container-width">
 				<SectionTitle title="Education" subtitle="Academic background and qualifications" />
 

@@ -9,7 +9,7 @@ import MotionWrapper from '@/components/ui/MotionWrapper';
 
 export default function Contact() {
 	return (
-		<section id="contact" className="py-12">
+		<section id="contact" className="py-8">
 			<div className="container-width">
 				<SectionTitle title="Get In Touch" subtitle="Let&apos;s connect and build something great" />
 
