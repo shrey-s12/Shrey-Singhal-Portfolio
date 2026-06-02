@@ -42,7 +42,7 @@ export const personalInfo: PersonalInfo = {
 
 	ogImage: '/images/Shrey.jpeg',
 
-	availability: 'Open to Backend Engineering Opportunities',
+	availability: 'Available for Opportunities',
 
 	focusAreas: [
 		'Backend Engineering',
