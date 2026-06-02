@@ -40,7 +40,7 @@ export default function Experience() {
 					initial="hidden"
 					whileInView="visible"
 					viewport={{ once: true, amount: 0.2 }}
-					className="relative mx-auto max-w-3xl"
+					className="relative mx-auto max-w-4xl"
 				>
 					{/* Timeline line - thicker with glow */}
 					<div className="absolute top-0 bottom-0 left-4 w-0.5 bg-linear-to-b from-[#3B82F6] to-[#8B5CF6] shadow-[0_0_8px_rgba(59,130,246,0.4)] md:left-6" />

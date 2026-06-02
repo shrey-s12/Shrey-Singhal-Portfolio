@@ -6,19 +6,53 @@ export const skillCategories: SkillCategory[] = [
 		skills: ['C++', 'JavaScript', 'TypeScript', 'PHP', 'SQL'],
 	},
 	{
-		title: 'Backend',
-		skills: ['Node.js', 'NestJS', 'Express.js', 'REST APIs', 'Authentication', 'Redis', 'Laravel'],
+		title: 'Backend Development',
+		skills: [
+			'Node.js',
+			'NestJS',
+			'Express.js',
+			'Laravel',
+			'CodeIgniter',
+			'REST APIs',
+			'JWT Authentication',
+			'RBAC',
+		],
 	},
 	{
-		title: 'Databases',
-		skills: ['SQL', 'MongoDB', 'Redis', 'Query Optimization', 'Database Design'],
+		title: 'Databases & Caching',
+		skills: ['MongoDB', 'MySQL', 'Redis', 'Database Design', 'Query Optimization'],
 	},
 	{
-		title: 'Frontend',
-		skills: ['Redux', 'React.js', 'Next.js', 'HTML', 'CSS', 'Tailwind CSS'],
+		title: 'Frontend Development',
+		skills: [
+			'React.js',
+			'Next.js',
+			'Redux',
+			'Tailwind CSS',
+			'Bootstrap',
+			'HTML',
+			'CSS',
+		],
 	},
 	{
-		title: 'DevOps & Tools',
-		skills: ['CI/CD', 'Git', 'GitHub', 'Swagger', 'Postman', 'Linux', 'VS Code'],
+		title: 'Cloud & DevOps',
+		skills: [
+			'AWS',
+			'Docker',
+			'CI/CD',
+			'Linux',
+		],
+	},
+	{
+		title: 'Tools & Platforms',
+		skills: [
+			'Git',
+			'GitHub',
+			'Bitbucket',
+			'Postman',
+			'Swagger',
+			'VS Code',
+			'XAMPP'
+		],
 	},
 ];
