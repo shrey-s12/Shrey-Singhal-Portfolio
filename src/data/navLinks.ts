@@ -26,16 +26,8 @@ export const navLinks: NavLink[] = [
 		href: '#projects',
 	},
 	{
-		name: 'Highlights',
-		href: '#highlights',
-	},
-	{
 		name: 'DSA',
 		href: '#dsa',
-	},
-	{
-		name: 'Learning',
-		href: '#learning',
 	},
 	{
 		name: 'Contact',
