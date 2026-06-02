@@ -42,3 +42,4 @@ next-env.d.ts
 
 /.kiro
 PORTFOLIO_PROMPT.md
+.env.local
