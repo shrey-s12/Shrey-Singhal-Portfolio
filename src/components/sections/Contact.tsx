@@ -1,67 +1,201 @@
 'use client';
 
-import { MailIcon, PhoneIcon, MapPinIcon } from 'lucide-react';
+import { useState } from 'react';
+import { MailIcon, PhoneIcon, MapPinIcon, SendIcon, CheckCircleIcon, AlertCircleIcon, ArrowUpRightIcon } from 'lucide-react';
 import { contact } from '@/data/contact';
 import { socials } from '@/data/socials';
 import SocialIcon from '@/components/ui/SocialIcon';
 import SectionTitle from '@/components/ui/SectionTitle';
 import MotionWrapper from '@/components/ui/MotionWrapper';
 
+type FormStatus = 'idle' | 'sending' | 'success' | 'error';
+
 export default function Contact() {
+	const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+	const [status, setStatus] = useState<FormStatus>('idle');
+	const [errorMessage, setErrorMessage] = useState('');
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		setStatus('sending');
+		setErrorMessage('');
+
+		try {
+			const response = await fetch('/api/contact', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(formData),
+			});
+
+			if (!response.ok) {
+				const data = await response.json() as { error: string };
+				throw new Error(data.error || 'Failed to send message');
+			}
+
+			setStatus('success');
+			setFormData({ name: '', email: '', message: '' });
+		} catch (err) {
+			setStatus('error');
+			setErrorMessage(err instanceof Error ? err.message : 'Something went wrong');
+		}
+	};
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+	};
+
 	return (
 		<section id="contact" className="py-8">
 			<div className="container-width">
-				<SectionTitle title="Get In Touch" subtitle="Let&apos;s connect and build something great" />
+				<SectionTitle title="Get In Touch" subtitle="Have a project in mind or want to discuss opportunities? Let's talk." />
 
-				<div className="mx-auto max-w-2xl">
+				<div className="mx-auto max-w-4xl">
 					<MotionWrapper>
-						<div className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#111827] p-8 shadow-[0_0_30px_rgba(59,130,246,0.05)]">
-							{/* Gradient border accent at top */}
-							<div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-[#3B82F6] to-[#8B5CF6]" />
+						<div className="overflow-hidden rounded-xl border border-[#1E293B] bg-[#111827]">
+							<div className="grid md:grid-cols-5">
+								{/* Left Panel — Dark accent background */}
+								<div className="relative flex flex-col justify-between bg-[#0B0F19] p-8 md:col-span-2">
+									{/* Subtle gradient overlay */}
+									<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(59,130,246,0.05)_0%,_transparent_70%)]" />
 
-							<div className="space-y-5">
-								{/* Email */}
-								<a
-									href={`mailto:${contact.email}`}
-									className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-5 text-[#F9FAFB]/80 transition-all hover:border-[#3B82F6]/30 hover:text-[#3B82F6] hover:shadow-[0_0_15px_rgba(59,130,246,0.08)] focus:outline-none focus:ring-2 focus:ring-[#3B82F6]/50"
-								>
-									<MailIcon size={20} className="shrink-0 text-[#3B82F6]" />
-									<span className="text-sm">{contact.email}</span>
-								</a>
+									<div className="relative">
+										<h3 className="mb-2 text-xl font-semibold text-[#F9FAFB]">Let&apos;s work together</h3>
+										<p className="mb-8 text-sm leading-relaxed text-[#64748b]">
+											I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of something great.
+										</p>
 
-								{/* Phone */}
-								<a
-									href={`tel:${contact.phone}`}
-									className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-5 text-[#F9FAFB]/80 transition-all hover:border-[#3B82F6]/30 hover:text-[#3B82F6] hover:shadow-[0_0_15px_rgba(59,130,246,0.08)] focus:outline-none focus:ring-2 focus:ring-[#3B82F6]/50"
-								>
-									<PhoneIcon size={20} className="shrink-0 text-[#3B82F6]" />
-									<span className="text-sm">{contact.phone}</span>
-								</a>
+										<div className="space-y-5">
+											<a
+												href={`mailto:${contact.email}`}
+												className="group flex items-center gap-3 text-sm text-[#94A3B8] transition-colors hover:text-[#F9FAFB]"
+											>
+												<span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1E293B] text-[#3B82F6] transition-colors group-hover:bg-[#3B82F6]/10">
+													<MailIcon size={16} />
+												</span>
+												{contact.email}
+											</a>
 
-								{/* Location */}
-								<div className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-5 text-[#F9FAFB]/80">
-									<MapPinIcon size={20} className="shrink-0 text-[#3B82F6]" />
-									<span className="text-sm">{contact.location}</span>
+											<a
+												href={`tel:${contact.phone}`}
+												className="group flex items-center gap-3 text-sm text-[#94A3B8] transition-colors hover:text-[#F9FAFB]"
+											>
+												<span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1E293B] text-[#3B82F6] transition-colors group-hover:bg-[#3B82F6]/10">
+													<PhoneIcon size={16} />
+												</span>
+												{contact.phone}
+											</a>
+
+											<div className="flex items-center gap-3 text-sm text-[#94A3B8]">
+												<span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1E293B] text-[#3B82F6]">
+													<MapPinIcon size={16} />
+												</span>
+												{contact.location}
+											</div>
+										</div>
+									</div>
+
+									{/* Social links at bottom */}
+									<div className="relative mt-10 flex items-center gap-3">
+										{socials.map((social) => (
+											<a
+												key={social.name}
+												href={social.url}
+												target="_blank"
+												rel="noopener noreferrer"
+												aria-label={`Visit ${social.name} profile`}
+												className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1E293B] text-[#64748b] transition-all hover:bg-[#3B82F6]/10 hover:text-[#3B82F6]"
+											>
+												<SocialIcon platform={social.name} size={16} />
+											</a>
+										))}
+									</div>
+								</div>
+
+								{/* Right Panel — Form */}
+								<div className="p-8 md:col-span-3">
+									<div className="mb-6 flex items-center justify-between">
+										<h3 className="text-lg font-medium text-[#F9FAFB]">Send a message</h3>
+										<ArrowUpRightIcon size={18} className="text-[#3B82F6]" />
+									</div>
+
+									<form onSubmit={handleSubmit} className="space-y-5">
+										<div className="grid gap-5 sm:grid-cols-2">
+											<div>
+												<label htmlFor="name" className="mb-2 block text-xs font-medium uppercase tracking-wider text-[#64748b]">Name</label>
+												<input
+													id="name"
+													name="name"
+													type="text"
+													required
+													value={formData.name}
+													onChange={handleChange}
+													placeholder="John Doe"
+													className="w-full rounded-lg border border-[#1E293B] bg-[#0B0F19] px-4 py-3 text-sm text-[#F9FAFB] placeholder-[#334155] outline-none transition-all focus:border-[#3B82F6]/50 focus:ring-1 focus:ring-[#3B82F6]/20"
+												/>
+											</div>
+											<div>
+												<label htmlFor="email" className="mb-2 block text-xs font-medium uppercase tracking-wider text-[#64748b]">Email</label>
+												<input
+													id="email"
+													name="email"
+													type="email"
+													required
+													value={formData.email}
+													onChange={handleChange}
+													placeholder="john@example.com"
+													className="w-full rounded-lg border border-[#1E293B] bg-[#0B0F19] px-4 py-3 text-sm text-[#F9FAFB] placeholder-[#334155] outline-none transition-all focus:border-[#3B82F6]/50 focus:ring-1 focus:ring-[#3B82F6]/20"
+												/>
+											</div>
+										</div>
+
+										<div>
+											<label htmlFor="message" className="mb-2 block text-xs font-medium uppercase tracking-wider text-[#64748b]">Message</label>
+											<textarea
+												id="message"
+												name="message"
+												required
+												rows={5}
+												value={formData.message}
+												onChange={handleChange}
+												placeholder="Tell me about your project or opportunity..."
+												className="w-full resize-none rounded-lg border border-[#1E293B] bg-[#0B0F19] px-4 py-3 text-sm text-[#F9FAFB] placeholder-[#334155] outline-none transition-all focus:border-[#3B82F6]/50 focus:ring-1 focus:ring-[#3B82F6]/20"
+											/>
+										</div>
+
+										<button
+											type="submit"
+											disabled={status === 'sending'}
+											className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#3B82F6] px-6 py-3 text-sm font-medium text-white transition-all hover:bg-[#2563eb] disabled:cursor-not-allowed disabled:opacity-50"
+										>
+											{status === 'sending' ? (
+												<>
+													<span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+													Sending...
+												</>
+											) : (
+												<>
+													<SendIcon size={15} />
+													Send Message
+												</>
+											)}
+										</button>
+
+										{status === 'success' && (
+											<div className="flex items-center gap-2 rounded-lg bg-green-500/10 px-4 py-3 text-sm text-green-400">
+												<CheckCircleIcon size={16} />
+												Message sent! I&apos;ll get back to you soon.
+											</div>
+										)}
+
+										{status === 'error' && (
+											<div className="flex items-center gap-2 rounded-lg bg-red-500/10 px-4 py-3 text-sm text-red-400">
+												<AlertCircleIcon size={16} />
+												{errorMessage}
+											</div>
+										)}
+									</form>
 								</div>
 							</div>
-						</div>
-					</MotionWrapper>
-
-					{/* Social Links */}
-					<MotionWrapper delay={0.2}>
-						<div className="mt-10 flex items-center justify-center gap-5">
-							{socials.map((social) => (
-								<a
-									key={social.name}
-									href={social.url}
-									target="_blank"
-									rel="noopener noreferrer"
-									aria-label={`Visit ${social.name} profile`}
-									className="flex h-12 w-12 items-center justify-center rounded-full border border-white/15 text-[#F9FAFB]/70 transition-all hover:border-[#3B82F6]/50 hover:text-[#3B82F6] hover:shadow-[0_0_15px_rgba(59,130,246,0.15)] focus:outline-none focus:ring-2 focus:ring-[#3B82F6]/50"
-								>
-									<SocialIcon platform={social.name} size={22} />
-								</a>
-							))}
 						</div>
 					</MotionWrapper>
 				</div>
