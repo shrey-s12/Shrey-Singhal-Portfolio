@@ -5,9 +5,9 @@ interface BadgeProps {
 
 export default function Badge({ text, variant = 'default' }: BadgeProps) {
 	const variantStyles: Record<string, string> = {
-		default: 'bg-white/10 text-[#F9FAFB] border-white/10',
-		accent: 'bg-[#3B82F6]/10 text-[#3B82F6] border-[#3B82F6]/30',
-		secondary: 'bg-[#8B5CF6]/10 text-[#8B5CF6] border-[#8B5CF6]/30',
+		default: 'bg-[var(--background-secondary)] text-[var(--text-secondary)] border-[var(--card-border)]',
+		accent: 'bg-[var(--accent)]/10 text-[var(--accent)] border-[var(--accent)]/30',
+		secondary: 'bg-[var(--accent-secondary)]/10 text-[var(--accent-secondary)] border-[var(--accent-secondary)]/30',
 	};
 
 	return (

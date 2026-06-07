@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { skillCategories } from '@/data/skills';
-import Badge from '@/components/ui/Badge';
 import SectionTitle from '@/components/ui/SectionTitle';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
@@ -16,7 +15,7 @@ export default function Skills() {
 		visible: {
 			opacity: 1,
 			transition: {
-				staggerChildren: prefersReducedMotion ? 0 : 0.15,
+				staggerChildren: prefersReducedMotion ? 0 : 0.1,
 			},
 		},
 	};
@@ -31,7 +30,7 @@ export default function Skills() {
 	};
 
 	return (
-		<section id="skills" className="py-8">
+		<section id="skills" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
 			<div className="container-width">
 				<SectionTitle title="Skills & Technologies" subtitle="Technologies and tools I work with" />
 
@@ -40,26 +39,28 @@ export default function Skills() {
 					initial="hidden"
 					whileInView="visible"
 					viewport={{ once: true, amount: 0.2 }}
-					className="grid gap-10 md:grid-cols-2 lg:grid-cols-3"
+					className="grid gap-6 md:grid-cols-2"
 				>
 					{skillCategories.map((category) => (
 						<motion.div
 							key={category.title}
 							variants={cardVariants}
-							whileHover={prefersReducedMotion ? {} : { y: -6, boxShadow: '0 0 40px rgba(59, 130, 246, 0.2), 0 0 80px rgba(139, 92, 246, 0.1)' }}
+							whileHover={prefersReducedMotion ? {} : { y: -4, boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}
 							transition={{ duration: 0.25 }}
-							className="rounded-2xl border-2 border-transparent bg-[#111827] p-8"
-							style={{
-								backgroundImage: 'linear-gradient(#111827, #111827), linear-gradient(135deg, #3B82F6, #8B5CF6)',
-								backgroundOrigin: 'border-box',
-								backgroundClip: 'padding-box, border-box',
-								border: '2px solid transparent',
-							}}
+							className="relative overflow-hidden rounded-2xl border border-[var(--card-border)] bg-[var(--card)] p-7 backdrop-blur-sm shadow-[0_10px_40px_rgba(0,0,0,0.35)]"
 						>
-							<h3 className="mb-6 text-lg font-semibold text-[#F9FAFB]">{category.title}</h3>
+							{/* Gradient top border accent */}
+							<div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#4F46E5] to-[#7C3AED]" />
+
+							<h3 className="mb-5 text-lg font-semibold text-[var(--text-primary)]">{category.title}</h3>
 							<div className="flex flex-wrap gap-2">
 								{category.skills.map((skill) => (
-									<Badge key={skill} text={skill} variant="default" />
+									<span
+										key={skill}
+										className="inline-block rounded-full border border-[var(--card-border)] bg-[var(--background-secondary)] px-3.5 py-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
+									>
+										{skill}
+									</span>
 								))}
 							</div>
 						</motion.div>

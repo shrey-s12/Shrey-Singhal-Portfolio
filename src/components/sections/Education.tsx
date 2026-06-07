@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { GraduationCapIcon } from 'lucide-react';
 import { education } from '@/data/education';
 import SectionTitle from '@/components/ui/SectionTitle';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -16,55 +17,71 @@ export default function Education() {
 		hidden: { opacity: 0 },
 		visible: {
 			opacity: 1,
-			transition: {
-				staggerChildren: prefersReducedMotion ? 0 : 0.15,
-			},
+			transition: { staggerChildren: prefersReducedMotion ? 0 : 0.15 },
 		},
 	};
 
-	const cardVariants = {
-		hidden: { opacity: 0, y: 30 },
+	const itemVariants = {
+		hidden: { opacity: 0, x: -10 },
 		visible: {
 			opacity: 1,
-			y: 0,
+			x: 0,
 			transition: { duration: 0.5, ease: 'easeOut' as const },
 		},
 	};
 
 	return (
-		<section id="education" className="py-8">
+		<section id="education" style={{ paddingTop: '140px', paddingBottom: '140px' }}>
 			<div className="container-width">
-				<SectionTitle title="Education" subtitle="Academic background and qualifications" />
+				{/* Section wrapped in a card border */}
+				<div className="rounded-2xl border border-[var(--card-border)] bg-[var(--card)] p-8 backdrop-blur-sm shadow-[0_10px_40px_rgba(0,0,0,0.2)]">
+					<SectionTitle
+						title="Education"
+						icon={<GraduationCapIcon size={18} />}
+					/>
 
-				<motion.div
-					variants={containerVariants}
-					initial="hidden"
-					whileInView="visible"
-					viewport={{ once: true, amount: 0.2 }}
-					className="mx-auto max-w-3xl space-y-10"
-				>
-					{sorted.map((entry) => (
-						<motion.div
-							key={`${entry.institution}-${entry.graduationYear}`}
-							variants={cardVariants}
-							className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#111827]/90 backdrop-blur-sm p-10"
-						>
-							{/* Gradient left border accent */}
-							<div className="absolute top-0 left-0 h-full w-1 bg-linear-to-b from-[#3B82F6] to-[#8B5CF6]" />
+					{/* Timeline */}
+					<motion.div
+						variants={containerVariants}
+						initial="hidden"
+						whileInView="visible"
+						viewport={{ once: true, amount: 0.2 }}
+						className="relative ml-3 border-l-2 border-[var(--card-border)] pl-8"
+					>
+						{sorted.map((entry, index) => {
+							const startYear = entry.graduationYear - (index === 0 ? 4 : 2);
+							const yearRange = `${startYear} - ${entry.graduationYear}`;
 
-							<div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-								<h3 className="text-lg font-semibold text-[#F9FAFB]">{entry.degree}</h3>
-								<span className="rounded-full bg-[#3B82F6]/10 px-3 py-1 text-xs font-medium text-[#3B82F6]">
-									{entry.graduationYear}
-								</span>
-							</div>
-							<p className="mb-1 text-base font-medium text-[#F9FAFB]/90">{entry.institution}</p>
-							<p className="mb-2 text-sm text-[#F9FAFB]/60">{entry.location}</p>
-							<p className="mb-3 text-sm font-medium text-[#8B5CF6]">{entry.score}</p>
-							<p className="text-sm text-[#F9FAFB]/70">{entry.description}</p>
-						</motion.div>
-					))}
-				</motion.div>
+							return (
+								<motion.div
+									key={`${entry.institution}-${entry.graduationYear}`}
+									variants={itemVariants}
+									className="relative mb-10 last:mb-0"
+								>
+									{/* Timeline Dot */}
+									<div className="absolute -left-[37px] top-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-[var(--accent)] bg-[var(--background)]">
+										<div className="h-2 w-2 rounded-full bg-[var(--accent)]" />
+									</div>
+
+									{/* Content */}
+									<div className="flex flex-wrap items-start justify-between gap-4">
+										<div>
+											<p className="mb-1 text-xs text-[var(--accent)]">{yearRange}</p>
+											<h3 className="text-base font-semibold text-[var(--text-primary)]">{entry.degree}</h3>
+											<p className="mt-1 text-sm text-[var(--text-secondary)]">{entry.institution}, {entry.location.split(',')[0]}</p>
+											<p className="mt-1 text-xs text-[var(--text-muted)]">{entry.score.includes('CGPA') ? entry.score : `Percentage: ${entry.score}`}</p>
+										</div>
+
+										{/* Score Badge */}
+										<span className="shrink-0 rounded-full bg-[var(--accent)]/10 px-4 py-1.5 text-sm font-semibold text-[var(--accent)]">
+											{entry.score}
+										</span>
+									</div>
+								</motion.div>
+							);
+						})}
+					</motion.div>
+				</div>
 			</div>
 		</section>
 	);

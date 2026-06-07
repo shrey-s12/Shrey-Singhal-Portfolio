@@ -15,9 +15,9 @@ export default function GlassCard({ children, className = '', hover = false }: G
 	if (hover && !prefersReducedMotion) {
 		return (
 			<motion.div
-				whileHover={{ y: -6, boxShadow: '0 0 40px rgba(59, 130, 246, 0.15), 0 0 80px rgba(139, 92, 246, 0.08)' }}
+				whileHover={{ y: -6, boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}
 				transition={{ duration: 0.25 }}
-				className={`rounded-2xl border border-white/15 bg-white/[0.03] p-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] backdrop-blur-lg ${className}`}
+				className={`rounded-2xl border border-[var(--card-border)] bg-[var(--card)] p-6 backdrop-blur-sm shadow-[0_10px_40px_rgba(0,0,0,0.35)] ${className}`}
 			>
 				{children}
 			</motion.div>
@@ -25,7 +25,7 @@ export default function GlassCard({ children, className = '', hover = false }: G
 	}
 
 	return (
-		<div className={`rounded-2xl border border-white/15 bg-white/[0.03] p-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] backdrop-blur-lg ${className}`}>
+		<div className={`rounded-2xl border border-[var(--card-border)] bg-[var(--card)] p-6 backdrop-blur-sm shadow-[0_10px_40px_rgba(0,0,0,0.35)] ${className}`}>
 			{children}
 		</div>
 	);

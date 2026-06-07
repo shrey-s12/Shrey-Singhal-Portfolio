@@ -45,31 +45,30 @@ export default function Contact() {
 	};
 
 	return (
-		<section id="contact" className="py-8">
+		<section id="contact" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
 			<div className="container-width">
 				<SectionTitle title="Get In Touch" subtitle="Have a project in mind or want to discuss opportunities? Let's talk." />
 
 				<div className="mx-auto max-w-4xl">
 					<MotionWrapper>
-						<div className="overflow-hidden rounded-xl border border-[#1E293B] bg-[#111827]">
+						<div className="overflow-hidden rounded-2xl border border-[var(--card-border)] bg-[var(--card)] shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
 							<div className="grid md:grid-cols-5">
-								{/* Left Panel — Dark accent background */}
-								<div className="relative flex flex-col justify-between bg-[#0B0F19] p-8 md:col-span-2">
-									{/* Subtle gradient overlay */}
-									<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(59,130,246,0.05)_0%,_transparent_70%)]" />
+								{/* Left Panel */}
+								<div className="relative flex flex-col justify-between bg-[var(--background-secondary)] p-8 md:col-span-2">
+									<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(79,70,229,0.05)_0%,_transparent_70%)]" />
 
 									<div className="relative">
-										<h3 className="mb-2 text-xl font-semibold text-[#F9FAFB]">Let&apos;s work together</h3>
-										<p className="mb-8 text-sm leading-relaxed text-[#64748b]">
+										<h3 className="mb-2 text-xl font-semibold text-[var(--text-primary)]">Let&apos;s work together</h3>
+										<p className="mb-8 text-sm leading-relaxed text-[var(--text-muted)]">
 											I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of something great.
 										</p>
 
 										<div className="space-y-5">
 											<a
 												href={`mailto:${contact.email}`}
-												className="group flex items-center gap-3 text-sm text-[#94A3B8] transition-colors hover:text-[#F9FAFB]"
+												className="group flex items-center gap-3 text-sm text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
 											>
-												<span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1E293B] text-[#3B82F6] transition-colors group-hover:bg-[#3B82F6]/10">
+												<span className="flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--card-border)] text-[var(--accent)] transition-colors group-hover:bg-[var(--accent)]/10">
 													<MailIcon size={16} />
 												</span>
 												{contact.email}
@@ -77,16 +76,16 @@ export default function Contact() {
 
 											<a
 												href={`tel:${contact.phone}`}
-												className="group flex items-center gap-3 text-sm text-[#94A3B8] transition-colors hover:text-[#F9FAFB]"
+												className="group flex items-center gap-3 text-sm text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
 											>
-												<span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1E293B] text-[#3B82F6] transition-colors group-hover:bg-[#3B82F6]/10">
+												<span className="flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--card-border)] text-[var(--accent)] transition-colors group-hover:bg-[var(--accent)]/10">
 													<PhoneIcon size={16} />
 												</span>
 												{contact.phone}
 											</a>
 
-											<div className="flex items-center gap-3 text-sm text-[#94A3B8]">
-												<span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1E293B] text-[#3B82F6]">
+											<div className="flex items-center gap-3 text-sm text-[var(--text-secondary)]">
+												<span className="flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--card-border)] text-[var(--accent)]">
 													<MapPinIcon size={16} />
 												</span>
 												{contact.location}
@@ -94,7 +93,7 @@ export default function Contact() {
 										</div>
 									</div>
 
-									{/* Social links at bottom */}
+									{/* Social links */}
 									<div className="relative mt-10 flex items-center gap-3">
 										{socials.map((social) => (
 											<a
@@ -103,7 +102,7 @@ export default function Contact() {
 												target="_blank"
 												rel="noopener noreferrer"
 												aria-label={`Visit ${social.name} profile`}
-												className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1E293B] text-[#64748b] transition-all hover:bg-[#3B82F6]/10 hover:text-[#3B82F6]"
+												className="flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--card-border)] text-[var(--text-muted)] transition-all hover:border-[var(--accent)] hover:text-[var(--accent)]"
 											>
 												<SocialIcon platform={social.name} size={16} />
 											</a>
@@ -114,14 +113,14 @@ export default function Contact() {
 								{/* Right Panel — Form */}
 								<div className="p-8 md:col-span-3">
 									<div className="mb-6 flex items-center justify-between">
-										<h3 className="text-lg font-medium text-[#F9FAFB]">Send a message</h3>
-										<ArrowUpRightIcon size={18} className="text-[#3B82F6]" />
+										<h3 className="text-lg font-medium text-[var(--text-primary)]">Send a message</h3>
+										<ArrowUpRightIcon size={18} className="text-[var(--accent)]" />
 									</div>
 
 									<form onSubmit={handleSubmit} className="space-y-5">
 										<div className="grid gap-5 sm:grid-cols-2">
 											<div>
-												<label htmlFor="name" className="mb-2 block text-xs font-medium uppercase tracking-wider text-[#64748b]">Name</label>
+												<label htmlFor="name" className="mb-2 block text-xs font-medium uppercase tracking-wider text-[var(--text-muted)]">Name</label>
 												<input
 													id="name"
 													name="name"
@@ -130,11 +129,11 @@ export default function Contact() {
 													value={formData.name}
 													onChange={handleChange}
 													placeholder="John Doe"
-													className="w-full rounded-lg border border-[#1E293B] bg-[#0B0F19] px-4 py-3 text-sm text-[#F9FAFB] placeholder-[#334155] outline-none transition-all focus:border-[#3B82F6]/50 focus:ring-1 focus:ring-[#3B82F6]/20"
+													className="w-full rounded-lg border border-[var(--card-border)] bg-[var(--background)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] outline-none transition-all focus:border-[var(--accent)]/50 focus:ring-1 focus:ring-[var(--accent)]/20"
 												/>
 											</div>
 											<div>
-												<label htmlFor="email" className="mb-2 block text-xs font-medium uppercase tracking-wider text-[#64748b]">Email</label>
+												<label htmlFor="email" className="mb-2 block text-xs font-medium uppercase tracking-wider text-[var(--text-muted)]">Email</label>
 												<input
 													id="email"
 													name="email"
@@ -143,13 +142,13 @@ export default function Contact() {
 													value={formData.email}
 													onChange={handleChange}
 													placeholder="john@example.com"
-													className="w-full rounded-lg border border-[#1E293B] bg-[#0B0F19] px-4 py-3 text-sm text-[#F9FAFB] placeholder-[#334155] outline-none transition-all focus:border-[#3B82F6]/50 focus:ring-1 focus:ring-[#3B82F6]/20"
+													className="w-full rounded-lg border border-[var(--card-border)] bg-[var(--background)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] outline-none transition-all focus:border-[var(--accent)]/50 focus:ring-1 focus:ring-[var(--accent)]/20"
 												/>
 											</div>
 										</div>
 
 										<div>
-											<label htmlFor="message" className="mb-2 block text-xs font-medium uppercase tracking-wider text-[#64748b]">Message</label>
+											<label htmlFor="message" className="mb-2 block text-xs font-medium uppercase tracking-wider text-[var(--text-muted)]">Message</label>
 											<textarea
 												id="message"
 												name="message"
@@ -158,14 +157,14 @@ export default function Contact() {
 												value={formData.message}
 												onChange={handleChange}
 												placeholder="Tell me about your project or opportunity..."
-												className="w-full resize-none rounded-lg border border-[#1E293B] bg-[#0B0F19] px-4 py-3 text-sm text-[#F9FAFB] placeholder-[#334155] outline-none transition-all focus:border-[#3B82F6]/50 focus:ring-1 focus:ring-[#3B82F6]/20"
+												className="w-full resize-none rounded-lg border border-[var(--card-border)] bg-[var(--background)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] outline-none transition-all focus:border-[var(--accent)]/50 focus:ring-1 focus:ring-[var(--accent)]/20"
 											/>
 										</div>
 
 										<button
 											type="submit"
 											disabled={status === 'sending'}
-											className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#3B82F6] px-6 py-3 text-sm font-medium text-white transition-all hover:bg-[#2563eb] disabled:cursor-not-allowed disabled:opacity-50"
+											className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] px-6 py-3 text-sm font-medium text-white transition-all hover:shadow-[0_4px_20px_rgba(79,70,229,0.4)] disabled:cursor-not-allowed disabled:opacity-50"
 										>
 											{status === 'sending' ? (
 												<>

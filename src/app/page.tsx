@@ -6,9 +6,7 @@ const Skills = dynamic(() => import('@/components/sections/Skills'));
 const Education = dynamic(() => import('@/components/sections/Education'));
 const Experience = dynamic(() => import('@/components/sections/Experience'));
 const Projects = dynamic(() => import('@/components/sections/Projects'));
-// const Highlights = dynamic(() => import('@/components/sections/Highlights'));
 const DSA = dynamic(() => import('@/components/sections/DSA'));
-// const Learning = dynamic(() => import('@/components/sections/Learning'));
 const Contact = dynamic(() => import('@/components/sections/Contact'));
 
 export default function Home() {
@@ -20,9 +18,7 @@ export default function Home() {
 			<Education />
 			<Experience />
 			<Projects />
-			{/* <Highlights /> */}
 			<DSA />
-			{/* <Learning /> */}
 			<Contact />
 		</main>
 	);
