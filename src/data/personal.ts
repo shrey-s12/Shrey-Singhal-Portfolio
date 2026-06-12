@@ -36,7 +36,7 @@ export const personalInfo: PersonalInfo = {
 
 	resume: '/resume/shrey-singhal-resume.pdf',
 
-	profileImage: '/images/Shrey.jpeg',
+	profileImage: '/images/Shrey2.jpeg',
 
 	heroImage: '/images/Shrey.jpeg',
 
@@ -66,7 +66,7 @@ export const personalInfo: PersonalInfo = {
 		},
 		{
 			label: 'Projects',
-			value: '8+',
+			value: '10+',
 			suffix: 'Major',
 		},
 		{
