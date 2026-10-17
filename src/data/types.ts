@@ -27,8 +27,6 @@ export interface PersonalInfo {
   phone: string;
   resume: string;
   profileImage: string;
-  heroImage: string;
-  ogImage: string;
   availability: string;
   focusAreas: string[];
   stats: Stat[];

@@ -4,6 +4,7 @@ import { Geist } from 'next/font/google';
 import './globals.css';
 
 import { personalInfo } from '@/data/personal';
+import { SITE_URL } from '@/lib/site';
 import SmoothScrollProvider from '@/components/layout/SmoothScrollProvider';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -14,15 +15,23 @@ const geist = Geist({
 	variable: '--font-geist',
 });
 
+// The preview image comes from app/opengraph-image.tsx, which Next.js picks up automatically
 export const metadata: Metadata = {
+	metadataBase: new URL(SITE_URL),
 	title: personalInfo.seo.title,
 	description: personalInfo.seo.description,
 	keywords: personalInfo.seo.keywords,
 	openGraph: {
 		title: personalInfo.seo.title,
 		description: personalInfo.seo.description,
-		images: [personalInfo.ogImage],
+		url: '/',
+		siteName: personalInfo.name,
 		type: 'website',
+	},
+	twitter: {
+		card: 'summary_large_image',
+		title: personalInfo.seo.title,
+		description: personalInfo.seo.description,
 	},
 };
 

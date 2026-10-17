@@ -1,48 +1,16 @@
 'use client';
 
-import { useState } from 'react';
 import { MailIcon, PhoneIcon, MapPinIcon, SendIcon, CheckCircleIcon, AlertCircleIcon, ArrowUpRightIcon } from 'lucide-react';
 import { contact } from '@/data/contact';
 import { socials } from '@/data/socials';
 import SocialIcon from '@/components/ui/SocialIcon';
 import SectionTitle from '@/components/ui/SectionTitle';
 import MotionWrapper from '@/components/ui/MotionWrapper';
-
-type FormStatus = 'idle' | 'sending' | 'success' | 'error';
+import { useContactForm } from '@/hooks/useContactForm';
+import { CONTACT_FIELD_LIMITS, CONTACT_HONEYPOT_FIELD } from '@/lib/contactForm';
 
 export default function Contact() {
-	const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-	const [status, setStatus] = useState<FormStatus>('idle');
-	const [errorMessage, setErrorMessage] = useState('');
-
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		setStatus('sending');
-		setErrorMessage('');
-
-		try {
-			const response = await fetch('/api/contact', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(formData),
-			});
-
-			if (!response.ok) {
-				const data = await response.json() as { error: string };
-				throw new Error(data.error || 'Failed to send message');
-			}
-
-			setStatus('success');
-			setFormData({ name: '', email: '', message: '' });
-		} catch (err) {
-			setStatus('error');
-			setErrorMessage(err instanceof Error ? err.message : 'Something went wrong');
-		}
-	};
-
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-	};
+	const { formData, status, errorMessage, handleChange, handleSubmit } = useContactForm();
 
 	return (
 		<section id="contact" className="py-8">
@@ -119,6 +87,17 @@ export default function Contact() {
 									</div>
 
 									<form onSubmit={handleSubmit} className="space-y-5">
+										{/* Honeypot: hidden from people, filled in by bots */}
+										<input
+											type="text"
+											name={CONTACT_HONEYPOT_FIELD}
+											value={formData[CONTACT_HONEYPOT_FIELD]}
+											onChange={handleChange}
+											tabIndex={-1}
+											autoComplete="off"
+											aria-hidden="true"
+											className="hidden"
+										/>
 										<div className="grid gap-5 sm:grid-cols-2">
 											<div>
 												<label htmlFor="name" className="mb-2 block text-xs font-medium uppercase tracking-wider text-subtle">Name</label>
@@ -127,6 +106,7 @@ export default function Contact() {
 													name="name"
 													type="text"
 													required
+													maxLength={CONTACT_FIELD_LIMITS.name}
 													value={formData.name}
 													onChange={handleChange}
 													placeholder="John Doe"
@@ -140,6 +120,7 @@ export default function Contact() {
 													name="email"
 													type="email"
 													required
+													maxLength={CONTACT_FIELD_LIMITS.email}
 													value={formData.email}
 													onChange={handleChange}
 													placeholder="john@example.com"
@@ -155,6 +136,7 @@ export default function Contact() {
 												name="message"
 												required
 												rows={5}
+												maxLength={CONTACT_FIELD_LIMITS.message}
 												value={formData.message}
 												onChange={handleChange}
 												placeholder="Tell me about your project or opportunity..."

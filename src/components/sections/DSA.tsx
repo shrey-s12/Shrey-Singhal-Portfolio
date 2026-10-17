@@ -1,15 +1,17 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ExternalLinkIcon, FlameIcon, TrophyIcon, TargetIcon } from 'lucide-react';
 import { dsaData } from '@/data/dsa';
-import type { LeetCodeStats } from '@/data/types';
 import AnimatedCounter from '@/components/ui/AnimatedCounter';
 import Badge from '@/components/ui/Badge';
 import SectionTitle from '@/components/ui/SectionTitle';
 import SpotlightCard from '@/components/ui/SpotlightCard';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useLeetCodeStats } from '@/hooks/useLeetCodeStats';
+
+const BADGE_ICON_SIZE_PX = 24;
 
 function ProgressBar({ solved, total, color }: { solved: number; total: number; color: string }) {
 	const percentage = total > 0 ? (solved / total) * 100 : 0;
@@ -26,72 +28,6 @@ function ProgressBar({ solved, total, color }: { solved: number; total: number; 
 	);
 }
 
-function SubmissionHeatmap({ calendar }: { calendar: Record<string, number> }) {
-	const CELL = 12;
-	const GAP = 4;
-	const STEP = CELL + GAP;
-
-	const { rects, labels, totalWeeks } = useMemo(() => {
-		const now = new Date();
-		const start = new Date(now);
-		start.setDate(start.getDate() - 52 * 7);
-		start.setDate(start.getDate() - start.getDay());
-
-		const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-		const allRects: Array<{ col: number; row: number; count: number; dateStr: string }> = [];
-		const monthPositions: Array<{ label: string; col: number }> = [];
-
-		let col = 0;
-		let prevMonth = -1;
-		const cursor = new Date(start);
-
-		while (cursor <= now) {
-			const dow = cursor.getDay();
-			if (dow === 0 && cursor > start) col++;
-
-			const curMonth = cursor.getMonth();
-			if (curMonth !== prevMonth) {
-				prevMonth = curMonth;
-				const lastLabel = monthPositions[monthPositions.length - 1];
-				if (!lastLabel || col - lastLabel.col >= 3) {
-					monthPositions.push({ label: monthNames[curMonth], col });
-				}
-			}
-
-			const ts = Math.floor(Date.UTC(cursor.getFullYear(), cursor.getMonth(), cursor.getDate()) / 1000).toString();
-			allRects.push({ col, row: dow, count: calendar[ts] ?? 0, dateStr: cursor.toISOString().split('T')[0] });
-			cursor.setDate(cursor.getDate() + 1);
-		}
-
-		return { rects: allRects, labels: monthPositions, totalWeeks: col + 1 };
-	}, [calendar]);
-
-	const getColor = (count: number): string => {
-		if (count === 0) return '#1a1f2e';
-		if (count <= 1) return '#0e4429';
-		if (count <= 3) return '#006d32';
-		if (count <= 6) return '#26a641';
-		return '#39d353';
-	};
-
-	const svgWidth = totalWeeks * STEP;
-	const svgHeight = 7 * STEP + 28;
-
-	return (
-		<div className="w-full overflow-x-auto">
-			<svg viewBox={`0 0 ${svgWidth} ${svgHeight}`} className="w-full" preserveAspectRatio="xMidYMid meet" style={{ maxHeight: '150px' }}>
-				{rects.map((r) => (
-					<rect className='cursor-pointer' key={r.dateStr} x={r.col * STEP} y={r.row * STEP} width={CELL} height={CELL} rx={2} ry={2} fill={getColor(r.count)}>
-						<title>{`${r.count} submission${r.count !== 1 ? 's' : ''} on ${new Date(r.dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`}</title>
-					</rect>
-				))}
-				{labels.map((m, i) => (
-					<text key={i} x={m.col * STEP} y={7 * STEP + 18} fill="var(--color-subtle)" fontSize={12}>{m.label}</text>
-				))}
-			</svg>
-		</div>
-	);
-}
 function LoadingSkeleton() {
 	return (
 		<div className="mx-auto max-w-4xl animate-pulse">
@@ -108,46 +44,7 @@ function LoadingSkeleton() {
 
 export default function DSA() {
 	const prefersReducedMotion = useReducedMotion();
-	const [stats, setStats] = useState<LeetCodeStats | null>(null);
-	const [loading, setLoading] = useState(true);
-
-	useEffect(() => {
-		async function fetchStats() {
-			try {
-				const response = await fetch('/api/leetcode');
-				if (!response.ok) throw new Error('Failed to fetch');
-				const data: LeetCodeStats = await response.json();
-				setStats(data);
-			} catch {
-				// Fallback to static data
-				setStats({
-					username: 'shrey_s12',
-					ranking: 0,
-					reputation: 0,
-					totalSolved: parseInt(dsaData.totalSolved) || 600,
-					totalQuestions: 3400,
-					easySolved: parseInt(dsaData.easy) || 300,
-					easyTotal: 850,
-					mediumSolved: parseInt(dsaData.medium) || 250,
-					mediumTotal: 1800,
-					hardSolved: parseInt(dsaData.hard) || 30,
-					hardTotal: 750,
-					contestRating: 0,
-					contestAttended: 0,
-					contestGlobalRanking: 0,
-					contestTopPercentage: 0,
-					badges: [],
-					streak: 0,
-					totalActiveDays: 0,
-					submissionCalendar: {},
-				});
-			} finally {
-				setLoading(false);
-			}
-		}
-
-		fetchStats();
-	}, []);
+	const stats = useLeetCodeStats();
 
 	const containerVariants = {
 		hidden: { opacity: 0 },
@@ -173,9 +70,7 @@ export default function DSA() {
 			<div className="container-width">
 				<SectionTitle title="Problem Solving Journey" subtitle="Data structures and algorithms practice" />
 
-				{loading ? (
-					<LoadingSkeleton />
-				) : stats ? (
+				{stats ? (
 					<motion.div
 						variants={containerVariants}
 						initial="hidden"
@@ -296,10 +191,13 @@ export default function DSA() {
 									{stats.badges.map((badge, index) => (
 										<div key={`${badge.name}-${index}`} className="flex items-center gap-2 rounded-lg bg-white/5 px-3 py-2">
 											{badge.icon && (
-												<img
+												<Image
 													src={badge.icon}
 													alt={badge.name}
-													className="h-6 w-6"
+													width={BADGE_ICON_SIZE_PX}
+													height={BADGE_ICON_SIZE_PX}
+													// Remote LeetCode assets; skip the optimizer so no remotePatterns config is needed
+													unoptimized
 												/>
 											)}
 											<span className="text-sm text-foreground">{badge.name}</span>
@@ -308,28 +206,6 @@ export default function DSA() {
 								</div>
 							</motion.div>
 						)}
-
-						{/* Submission Heatmap */}
-						{/* {Object.keys(stats.submissionCalendar).length > 0 && (
-							<motion.div
-								variants={itemVariants}
-								className="mb-6 rounded-xl border border-border bg-surface p-6"
-							>
-								<div className="mb-4 flex items-center justify-between">
-									<h3 className="text-sm font-medium text-muted">Submission Activity (Last 1 Year)</h3>
-									<div className="flex items-center gap-1 text-xs text-muted">
-										<span>Less</span>
-										<div className="h-[11px] w-[11px] rounded-[2px] bg-border" />
-										<div className="h-[11px] w-[11px] rounded-[2px] bg-green-900" />
-										<div className="h-[11px] w-[11px] rounded-[2px] bg-green-700" />
-										<div className="h-[11px] w-[11px] rounded-[2px] bg-green-500" />
-										<div className="h-[11px] w-[11px] rounded-[2px] bg-green-400" />
-										<span>More</span>
-									</div>
-								</div>
-								<SubmissionHeatmap calendar={stats.submissionCalendar} />
-							</motion.div>
-						)} */}
 
 						{/* Platform & Link */}
 						<motion.div
@@ -363,7 +239,9 @@ export default function DSA() {
 							))}
 						</motion.div>
 					</motion.div>
-				) : null}
+				) : (
+					<LoadingSkeleton />
+				)}
 			</div>
 		</section>
 	);

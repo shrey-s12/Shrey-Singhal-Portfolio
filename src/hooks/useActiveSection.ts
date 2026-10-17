@@ -10,8 +10,6 @@ export function useActiveSection(sectionIds: string[]): string {
 			return;
 		}
 
-		const observers: IntersectionObserver[] = [];
-
 		const handleIntersect = (entries: IntersectionObserverEntry[]) => {
 			entries.forEach((entry: IntersectionObserverEntry) => {
 				if (entry.isIntersecting) {
@@ -32,11 +30,7 @@ export function useActiveSection(sectionIds: string[]): string {
 			}
 		});
 
-		observers.push(observer);
-
-		return () => {
-			observers.forEach((obs: IntersectionObserver) => obs.disconnect());
-		};
+		return () => observer.disconnect();
 	}, [sectionIds]);
 
 	return activeSection;

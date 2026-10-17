@@ -41,10 +41,6 @@ export const personalInfo: PersonalInfo = {
 
 	profileImage: '/images/Shrey2.jpeg',
 
-	heroImage: '/images/Shrey.jpeg',
-
-	ogImage: '/images/Shrey.jpeg',
-
 	availability: 'Software Development Engineer @ GIVA',
 
 	focusAreas: [
