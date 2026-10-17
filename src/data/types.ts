@@ -75,6 +75,8 @@ export interface Education {
   institution: string;
   degree: string;
   location: string;
+  // Shown as a "start – end" range when present
+  startYear?: number;
   graduationYear: number;
   score: string;
   description: string;

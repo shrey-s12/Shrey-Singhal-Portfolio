@@ -15,6 +15,18 @@
 	--color-accent: #3b82f6;
 	--color-accent-hover: #2563eb;
 	--color-secondary: #8b5cf6;
+
+	/* Endless horizontal scroll; the duration is set per marquee through --marquee-duration */
+	--animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+
+	@keyframes marquee {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(-100%);
+		}
+	}
 }
 
 @layer base {

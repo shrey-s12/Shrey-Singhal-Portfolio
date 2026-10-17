@@ -60,7 +60,7 @@ export const personalInfo: PersonalInfo = {
 		},
 		{
 			label: 'DSA Problems',
-			value: '600+',
+			value: '650+',
 			suffix: 'Solved',
 		},
 		{

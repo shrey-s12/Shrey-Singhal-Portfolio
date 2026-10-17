@@ -19,10 +19,6 @@ export const skillCategories: SkillCategory[] = [
 		],
 	},
 	{
-		title: 'Databases & Caching',
-		skills: ['MongoDB', 'MySQL', 'Redis', 'Database Design', 'Query Optimization'],
-	},
-	{
 		title: 'Frontend Development',
 		skills: [
 			'React.js',
@@ -33,6 +29,10 @@ export const skillCategories: SkillCategory[] = [
 			'HTML',
 			'CSS',
 		],
+	},
+	{
+		title: 'Databases & Caching',
+		skills: ['MongoDB', 'MySQL', 'Redis', 'Database Design', 'Query Optimization'],
 	},
 	{
 		title: 'Cloud & DevOps',
