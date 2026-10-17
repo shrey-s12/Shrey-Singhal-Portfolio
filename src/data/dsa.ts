@@ -2,7 +2,7 @@ import type { DSAData } from '@/data/types';
 
 export const dsaData: DSAData = {
 	totalSolved: '600+',
-	easy: '300+',
+	easy: '350+',
 	medium: '250+',
 	hard: '30+',
 	platform: 'LeetCode',
