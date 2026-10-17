@@ -2,8 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { skillCategories } from '@/data/skills';
-import Badge from '@/components/ui/Badge';
+import TechBadge from '@/components/ui/TechBadge';
 import SectionTitle from '@/components/ui/SectionTitle';
+import SpotlightCard from '@/components/ui/SpotlightCard';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 export default function Skills() {
@@ -43,26 +44,26 @@ export default function Skills() {
 					className="grid gap-10 md:grid-cols-2 lg:grid-cols-3"
 				>
 					{skillCategories.map((category) => (
-						<motion.div
+						<SpotlightCard
 							key={category.title}
 							variants={cardVariants}
 							whileHover={prefersReducedMotion ? {} : { y: -6, boxShadow: '0 0 40px rgba(59, 130, 246, 0.2), 0 0 80px rgba(139, 92, 246, 0.1)' }}
 							transition={{ duration: 0.25 }}
-							className="rounded-2xl border-2 border-transparent bg-[#111827] p-8"
+							className="rounded-2xl border-2 border-transparent bg-surface p-8"
 							style={{
-								backgroundImage: 'linear-gradient(#111827, #111827), linear-gradient(135deg, #3B82F6, #8B5CF6)',
+								backgroundImage: 'linear-gradient(var(--color-surface), var(--color-surface)), linear-gradient(135deg, var(--color-accent), var(--color-secondary))',
 								backgroundOrigin: 'border-box',
 								backgroundClip: 'padding-box, border-box',
 								border: '2px solid transparent',
 							}}
 						>
-							<h3 className="mb-6 text-lg font-semibold text-[#F9FAFB]">{category.title}</h3>
+							<h3 className="mb-6 text-lg font-semibold text-foreground">{category.title}</h3>
 							<div className="flex flex-wrap gap-2">
 								{category.skills.map((skill) => (
-									<Badge key={skill} text={skill} variant="default" />
+									<TechBadge key={skill} name={skill} variant="default" />
 								))}
 							</div>
-						</motion.div>
+						</SpotlightCard>
 					))}
 				</motion.div>
 			</div>

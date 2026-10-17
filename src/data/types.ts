@@ -16,6 +16,7 @@ export interface PersonalInfo {
   name: string;
   shortName: string;
   role: string;
+  roles: string[];
   tagline: string;
   introduction: string;
   description: string;

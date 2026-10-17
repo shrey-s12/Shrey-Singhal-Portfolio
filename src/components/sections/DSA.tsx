@@ -8,6 +8,7 @@ import type { LeetCodeStats } from '@/data/types';
 import AnimatedCounter from '@/components/ui/AnimatedCounter';
 import Badge from '@/components/ui/Badge';
 import SectionTitle from '@/components/ui/SectionTitle';
+import SpotlightCard from '@/components/ui/SpotlightCard';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 function ProgressBar({ solved, total, color }: { solved: number; total: number; color: string }) {
@@ -85,7 +86,7 @@ function SubmissionHeatmap({ calendar }: { calendar: Record<string, number> }) {
 					</rect>
 				))}
 				{labels.map((m, i) => (
-					<text key={i} x={m.col * STEP} y={7 * STEP + 18} fill="#64748b" fontSize={12}>{m.label}</text>
+					<text key={i} x={m.col * STEP} y={7 * STEP + 18} fill="var(--color-subtle)" fontSize={12}>{m.label}</text>
 				))}
 			</svg>
 		</div>
@@ -96,11 +97,11 @@ function LoadingSkeleton() {
 		<div className="mx-auto max-w-4xl animate-pulse">
 			<div className="mb-8 grid grid-cols-1 gap-5 md:grid-cols-3">
 				{[1, 2, 3].map((i) => (
-					<div key={i} className="h-36 rounded-xl bg-[#111827] border border-[#1E293B]" />
+					<div key={i} className="h-36 rounded-xl bg-surface border border-border" />
 				))}
 			</div>
-			<div className="mb-8 h-20 rounded-xl bg-[#111827] border border-[#1E293B]" />
-			<div className="h-32 rounded-xl bg-[#111827] border border-[#1E293B]" />
+			<div className="mb-8 h-20 rounded-xl bg-surface border border-border" />
+			<div className="h-32 rounded-xl bg-surface border border-border" />
 		</div>
 	);
 }
@@ -185,19 +186,19 @@ export default function DSA() {
 						{/* Top Row: Contest Rating | Problems Solved | Streak */}
 						<div className="mb-6 grid grid-cols-1 gap-5 md:grid-cols-3">
 							{/* Contest Rating */}
-							<motion.div
+							<SpotlightCard
 								variants={itemVariants}
-								className="rounded-xl border border-[#1E293B] bg-[#111827] p-6"
+								className="rounded-xl border border-border bg-surface p-6"
 							>
 								<div className="mb-3 flex items-center gap-2">
 									<TrophyIcon size={18} className="text-yellow-400" />
-									<span className="text-sm font-medium text-[#94A3B8]">Contest Rating</span>
+									<span className="text-sm font-medium text-muted">Contest Rating</span>
 								</div>
-								<div className="mb-2 text-3xl font-bold text-[#F9FAFB]">
+								<div className="mb-2 text-3xl font-bold text-foreground">
 									{stats.contestRating > 0 ? (
 										<AnimatedCounter value={String(stats.contestRating)} />
 									) : (
-										<span className="text-[#94A3B8]">—</span>
+										<span className="text-muted">—</span>
 									)}
 								</div>
 								{stats.contestTopPercentage > 0 && (
@@ -205,92 +206,92 @@ export default function DSA() {
 										Top {stats.contestTopPercentage}%
 									</span>
 								)}
-								<div className="mt-3 space-y-1 text-xs text-[#94A3B8]">
+								<div className="mt-3 space-y-1 text-xs text-muted">
 									<div>Contests: {stats.contestAttended}</div>
 									{stats.contestGlobalRanking > 0 && (
 										<div>Global Rank: #{stats.contestGlobalRanking.toLocaleString()}</div>
 									)}
 								</div>
-							</motion.div>
+							</SpotlightCard>
 
 							{/* Problems Solved */}
-							<motion.div
+							<SpotlightCard
 								variants={itemVariants}
-								className="rounded-xl border border-[#1E293B] bg-[#111827] p-6"
+								className="rounded-xl border border-border bg-surface p-6"
 							>
 								<div className="mb-3 flex items-center gap-2">
-									<TargetIcon size={18} className="text-[#3B82F6]" />
-									<span className="text-sm font-medium text-[#94A3B8]">Problems Solved</span>
+									<TargetIcon size={18} className="text-accent" />
+									<span className="text-sm font-medium text-muted">Problems Solved</span>
 								</div>
-								<div className="mb-4 text-3xl font-bold text-[#F9FAFB]">
+								<div className="mb-4 text-3xl font-bold text-foreground">
 									<AnimatedCounter value={String(stats.totalSolved)} />
-									<span className="text-lg text-[#94A3B8]">/{stats.totalQuestions}</span>
+									<span className="text-lg text-muted">/{stats.totalQuestions}</span>
 								</div>
 								<div className="space-y-3">
 									<div>
 										<div className="mb-1 flex justify-between text-xs">
 											<span className="text-green-400">Easy</span>
-											<span className="text-[#94A3B8]">{stats.easySolved}/{stats.easyTotal}</span>
+											<span className="text-muted">{stats.easySolved}/{stats.easyTotal}</span>
 										</div>
 										<ProgressBar solved={stats.easySolved} total={stats.easyTotal} color="bg-green-400" />
 									</div>
 									<div>
 										<div className="mb-1 flex justify-between text-xs">
 											<span className="text-yellow-400">Medium</span>
-											<span className="text-[#94A3B8]">{stats.mediumSolved}/{stats.mediumTotal}</span>
+											<span className="text-muted">{stats.mediumSolved}/{stats.mediumTotal}</span>
 										</div>
 										<ProgressBar solved={stats.mediumSolved} total={stats.mediumTotal} color="bg-yellow-400" />
 									</div>
 									<div>
 										<div className="mb-1 flex justify-between text-xs">
 											<span className="text-red-400">Hard</span>
-											<span className="text-[#94A3B8]">{stats.hardSolved}/{stats.hardTotal}</span>
+											<span className="text-muted">{stats.hardSolved}/{stats.hardTotal}</span>
 										</div>
 										<ProgressBar solved={stats.hardSolved} total={stats.hardTotal} color="bg-red-400" />
 									</div>
 								</div>
-							</motion.div>
+							</SpotlightCard>
 
 							{/* Streak */}
-							<motion.div
+							<SpotlightCard
 								variants={itemVariants}
-								className="rounded-xl border border-[#1E293B] bg-[#111827] p-6"
+								className="rounded-xl border border-border bg-surface p-6"
 							>
 								<div className="mb-3 flex items-center gap-2">
 									<FlameIcon size={18} className="text-orange-400" />
-									<span className="text-sm font-medium text-[#94A3B8]">Streak</span>
+									<span className="text-sm font-medium text-muted">Streak</span>
 								</div>
-								<div className="mb-1 text-3xl font-bold text-[#F9FAFB]">
+								<div className="mb-1 text-3xl font-bold text-foreground">
 									{stats.streak > 0 ? (
 										<>
 											<AnimatedCounter value={String(stats.streak)} />
-											<span className="ml-1 text-base text-[#94A3B8]">days</span>
+											<span className="ml-1 text-base text-muted">days</span>
 										</>
 									) : (
-										<span className="text-[#94A3B8]">—</span>
+										<span className="text-muted">—</span>
 									)}
 								</div>
-								<p className="text-xs text-[#94A3B8]">Current Streak</p>
+								<p className="text-xs text-muted">Current Streak</p>
 								<div className="mt-4 rounded-lg bg-white/5 px-4 py-3">
-									<div className="text-lg font-semibold text-[#F9FAFB]">
+									<div className="text-lg font-semibold text-foreground">
 										{stats.totalActiveDays > 0 ? (
 											<AnimatedCounter value={String(stats.totalActiveDays)} />
 										) : (
 											'—'
 										)}
 									</div>
-									<p className="text-xs text-[#94A3B8]">Total Active Days</p>
+									<p className="text-xs text-muted">Total Active Days</p>
 								</div>
-							</motion.div>
+							</SpotlightCard>
 						</div>
 
 						{/* Badges Row */}
 						{stats.badges.length > 0 && (
 							<motion.div
 								variants={itemVariants}
-								className="mb-6 rounded-xl border border-[#1E293B] bg-[#111827] p-6"
+								className="mb-6 rounded-xl border border-border bg-surface p-6"
 							>
-								<h3 className="mb-4 text-sm font-medium text-[#94A3B8]">Badges</h3>
+								<h3 className="mb-4 text-sm font-medium text-muted">Badges</h3>
 								<div className="flex flex-wrap gap-4">
 									{stats.badges.map((badge, index) => (
 										<div key={`${badge.name}-${index}`} className="flex items-center gap-2 rounded-lg bg-white/5 px-3 py-2">
@@ -301,7 +302,7 @@ export default function DSA() {
 													className="h-6 w-6"
 												/>
 											)}
-											<span className="text-sm text-[#F9FAFB]">{badge.name}</span>
+											<span className="text-sm text-foreground">{badge.name}</span>
 										</div>
 									))}
 								</div>
@@ -312,13 +313,13 @@ export default function DSA() {
 						{/* {Object.keys(stats.submissionCalendar).length > 0 && (
 							<motion.div
 								variants={itemVariants}
-								className="mb-6 rounded-xl border border-[#1E293B] bg-[#111827] p-6"
+								className="mb-6 rounded-xl border border-border bg-surface p-6"
 							>
 								<div className="mb-4 flex items-center justify-between">
-									<h3 className="text-sm font-medium text-[#94A3B8]">Submission Activity (Last 1 Year)</h3>
-									<div className="flex items-center gap-1 text-xs text-[#94A3B8]">
+									<h3 className="text-sm font-medium text-muted">Submission Activity (Last 1 Year)</h3>
+									<div className="flex items-center gap-1 text-xs text-muted">
 										<span>Less</span>
-										<div className="h-[11px] w-[11px] rounded-[2px] bg-[#1E293B]" />
+										<div className="h-[11px] w-[11px] rounded-[2px] bg-border" />
 										<div className="h-[11px] w-[11px] rounded-[2px] bg-green-900" />
 										<div className="h-[11px] w-[11px] rounded-[2px] bg-green-700" />
 										<div className="h-[11px] w-[11px] rounded-[2px] bg-green-500" />
@@ -335,12 +336,12 @@ export default function DSA() {
 							variants={itemVariants}
 							className="mb-8 text-center"
 						>
-							<p className="mb-3 text-sm text-[#F9FAFB]/70">{dsaData.description}</p>
+							<p className="mb-3 text-sm text-foreground/70">{dsaData.description}</p>
 							<a
 								href={dsaData.leetcodeProfile}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="inline-flex items-center gap-2 text-sm font-medium text-[#3B82F6] transition-colors hover:text-[#3B82F6]/80"
+								className="inline-flex items-center gap-2 text-sm font-medium text-accent transition-colors hover:text-accent/80"
 							>
 								{dsaData.platform} Profile
 								<ExternalLinkIcon size={14} />

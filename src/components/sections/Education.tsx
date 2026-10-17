@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { education } from '@/data/education';
 import SectionTitle from '@/components/ui/SectionTitle';
+import SpotlightCard from '@/components/ui/SpotlightCard';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 export default function Education() {
@@ -44,25 +45,25 @@ export default function Education() {
 					className="mx-auto max-w-3xl space-y-10"
 				>
 					{sorted.map((entry) => (
-						<motion.div
+						<SpotlightCard
 							key={`${entry.institution}-${entry.graduationYear}`}
 							variants={cardVariants}
-							className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#111827]/90 backdrop-blur-sm p-10"
+							className="relative overflow-hidden rounded-2xl border border-white/15 bg-surface/90 backdrop-blur-sm p-10"
 						>
 							{/* Gradient left border accent */}
-							<div className="absolute top-0 left-0 h-full w-1 bg-linear-to-b from-[#3B82F6] to-[#8B5CF6]" />
+							<div className="absolute top-0 left-0 h-full w-1 bg-linear-to-b from-accent to-secondary" />
 
 							<div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-								<h3 className="text-lg font-semibold text-[#F9FAFB]">{entry.degree}</h3>
-								<span className="rounded-full bg-[#3B82F6]/10 px-3 py-1 text-xs font-medium text-[#3B82F6]">
+								<h3 className="text-lg font-semibold text-foreground">{entry.degree}</h3>
+								<span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
 									{entry.graduationYear}
 								</span>
 							</div>
-							<p className="mb-1 text-base font-medium text-[#F9FAFB]/90">{entry.institution}</p>
-							<p className="mb-2 text-sm text-[#F9FAFB]/60">{entry.location}</p>
-							<p className="mb-3 text-sm font-medium text-[#8B5CF6]">{entry.score}</p>
-							<p className="text-sm text-[#F9FAFB]/70">{entry.description}</p>
-						</motion.div>
+							<p className="mb-1 text-base font-medium text-foreground/90">{entry.institution}</p>
+							<p className="mb-2 text-sm text-foreground/60">{entry.location}</p>
+							<p className="mb-3 text-sm font-medium text-secondary">{entry.score}</p>
+							<p className="text-sm text-foreground/70">{entry.description}</p>
+						</SpotlightCard>
 					))}
 				</motion.div>
 			</div>

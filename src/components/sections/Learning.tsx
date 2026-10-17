@@ -45,12 +45,12 @@ export default function Learning() {
 						<motion.div
 							key={entry.title}
 							variants={cardVariants}
-							className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#111827] p-7"
+							className="relative overflow-hidden rounded-2xl border border-white/15 bg-surface p-7"
 						>
 							{/* Subtle gradient accent at top */}
-							<div className="absolute top-0 left-0 h-0.5 w-full bg-linear-to-r from-[#3B82F6] to-[#8B5CF6]" />
-							<h3 className="mb-3 text-lg font-semibold text-[#F9FAFB]">{entry.title}</h3>
-							<p className="text-sm leading-relaxed text-[#F9FAFB]/70">{entry.description}</p>
+							<div className="absolute top-0 left-0 h-0.5 w-full bg-linear-to-r from-accent to-secondary" />
+							<h3 className="mb-3 text-lg font-semibold text-foreground">{entry.title}</h3>
+							<p className="text-sm leading-relaxed text-foreground/70">{entry.description}</p>
 						</motion.div>
 					))}
 				</motion.div>

@@ -9,6 +9,9 @@ export const personalInfo: PersonalInfo = {
 
 	role: 'Software Engineer / Backend Engineer',
 
+	// Cycled through in the Hero
+	roles: ['Software Development Engineer', 'Full Stack Developer', 'Problem Solver'],
+
 	tagline: 'Building scalable backend systems and modern digital experiences.',
 
 	introduction:
@@ -24,9 +27,9 @@ export const personalInfo: PersonalInfo = {
 		Apart from backend engineering, I've solved 600+ DSA problems on LeetCode across multiple topics including Arrays, Trees, Graphs, Dynamic Programming, and Sliding Window techniques.
 	`,
 
-	currentCompany: 'AppSquadz',
+	currentCompany: 'GIVA',
 
-	location: 'Noida, Uttar Pradesh, India',
+	location: 'Bengaluru, Karnataka, India',
 
 	experience: '1+ Year',
 
@@ -42,7 +45,7 @@ export const personalInfo: PersonalInfo = {
 
 	ogImage: '/images/Shrey.jpeg',
 
-	availability: 'Available for Opportunities',
+	availability: 'Software Development Engineer @ GIVA',
 
 	focusAreas: [
 		'Backend Engineering',
@@ -100,7 +103,12 @@ export const personalInfo: PersonalInfo = {
 
 		keywords: [
 			'Shrey Singhal',
+			'Software Development Engineer',
+			'Frontend Engineer',
 			'Backend Engineer',
+			'Full Stack Developer',
+			'Web Developer',
+			'Portfolio',
 			'Node.js Developer',
 			'NestJS Developer',
 			'Software Engineer',

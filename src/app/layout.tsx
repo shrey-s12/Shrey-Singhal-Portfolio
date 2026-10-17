@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className={`${geist.variable} scroll-smooth`}>
-			<body className="bg-[#0B0F19] font-[family-name:var(--font-geist)] text-[#F9FAFB] antialiased">
+			<body className="bg-background font-[family-name:var(--font-geist)] text-foreground antialiased">
 				{/* Background Glow */}
 				<div className="fixed inset-0 -z-10 overflow-hidden">
 					<div className="absolute top-0 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-[120px]" />
