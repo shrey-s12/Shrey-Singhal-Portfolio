@@ -6,6 +6,18 @@ export const skillCategories: SkillCategory[] = [
 		skills: ['C++', 'JavaScript', 'TypeScript', 'PHP', 'SQL'],
 	},
 	{
+		title: 'Frontend Development',
+		skills: [
+			'Next.js',
+			'React.js',
+			'Redux',
+			'Tailwind CSS',
+			'Bootstrap',
+			'HTML',
+			'CSS',
+		],
+	},
+	{
 		title: 'Backend Development',
 		skills: [
 			'Node.js',
@@ -16,18 +28,6 @@ export const skillCategories: SkillCategory[] = [
 			'REST APIs',
 			'JWT Authentication',
 			'RBAC',
-		],
-	},
-	{
-		title: 'Frontend Development',
-		skills: [
-			'React.js',
-			'Next.js',
-			'Redux',
-			'Tailwind CSS',
-			'Bootstrap',
-			'HTML',
-			'CSS',
 		],
 	},
 	{

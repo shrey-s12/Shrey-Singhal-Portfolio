@@ -7,24 +7,24 @@ export const personalInfo: PersonalInfo = {
 
 	shortName: 'Shrey',
 
-	role: 'Software Engineer / Backend Engineer',
+	role: 'Full Stack Engineer',
 
 	// Cycled through in the Hero
-	roles: ['Software Development Engineer', 'Full Stack Developer', 'Problem Solver'],
+	roles: ['Software Development Engineer', 'Full Stack Engineer', 'Frontend Engineer', 'Backend Engineer'],
 
-	tagline: 'Building scalable backend systems and modern digital experiences.',
+	tagline: 'Crafting fast, polished interfaces, backed by systems that scale.',
 
 	introduction:
-		'Backend Engineer focused on scalable APIs, authentication systems, backend architecture, and performance optimization.',
+		'Full-stack engineer who builds fast, accessible interfaces and the scalable APIs behind them.',
 
 	description: `
-		I'm a Backend Engineer with 1+ years of professional experience building scalable backend systems, REST APIs, and production-focused web applications.
+		I'm a full-stack engineer with 1+ year of professional experience building production web applications, from polished interfaces to the APIs behind them.
 
-		Currently working at AppSquadz, I specialize in backend development using Node.js ecosystem technologies including NestJS, Express.js, MongoDB, Redis, and SQL databases.
+		At GIVA, I work on the company's web application, built with Next.js and TypeScript. Before that, at AppSquadz, I built scalable backend systems with NestJS, Express.js, MongoDB, Redis, and SQL.
 
-		I enjoy solving engineering problems, optimizing application performance, and designing maintainable backend architectures.
+		That backend foundation shapes how I build frontends: I think about data flow, performance, and how every screen talks to the server.
 
-		Apart from backend engineering, I've solved 600+ DSA problems on LeetCode across multiple topics including Arrays, Trees, Graphs, Dynamic Programming, and Sliding Window techniques.
+		Outside of work, I've solved 650+ DSA problems on LeetCode across Arrays, Trees, Graphs, Dynamic Programming, and more.
 	`,
 
 	currentCompany: 'GIVA',
@@ -44,12 +44,12 @@ export const personalInfo: PersonalInfo = {
 	availability: 'Software Development Engineer @ GIVA',
 
 	focusAreas: [
-		'Backend Engineering',
-		'System Design',
+		'Frontend Architecture',
+		'React & Next.js',
+		'TypeScript',
+		'UI Performance',
 		'Scalable APIs',
-		'Performance Optimization',
-		'Redis Caching',
-		'High Level Design',
+		'System Design',
 	],
 
 	stats: [
@@ -92,27 +92,27 @@ export const personalInfo: PersonalInfo = {
 	],
 
 	seo: {
-		title: 'Shrey Singhal | Backend Engineer Portfolio',
+		title: 'Shrey Singhal | SDE | Full Stack Engineer | Portfolio',
 
 		description:
-			'Backend Engineer portfolio showcasing scalable APIs, backend architecture, system design, and modern full-stack applications.',
+			'Full-stack engineer at GIVA building fast, polished interfaces with Next.js and TypeScript, backed by scalable APIs and solid system design.',
 
 		keywords: [
 			'Shrey Singhal',
-			'Software Development Engineer',
+			'Full Stack Engineer',
 			'Frontend Engineer',
+			'Software Development Engineer',
+			'React Developer',
+			'Next.js Developer',
+			'TypeScript Developer',
 			'Backend Engineer',
-			'Full Stack Developer',
-			'Web Developer',
-			'Portfolio',
 			'Node.js Developer',
 			'NestJS Developer',
 			'Software Engineer',
+			'Web Developer',
 			'System Design',
 			'REST APIs',
-			'MongoDB',
-			'Redis',
-			'Next.js Portfolio',
+			'Portfolio',
 		],
 	},
 };

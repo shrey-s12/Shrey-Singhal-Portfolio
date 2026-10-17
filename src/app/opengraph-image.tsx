@@ -20,7 +20,7 @@ const COLORS = {
 const FONT_DIR = join(process.cwd(), 'src/assets/fonts');
 const FONT_FAMILY = 'Geist';
 
-const FEATURED_TECH = ['Node.js', 'NestJS', 'TypeScript', 'MongoDB', 'Redis', 'React'];
+const FEATURED_TECH = ['React', 'Next.js', 'TypeScript', 'Node.js', 'NestJS', 'MongoDB'];
 
 export default async function OpengraphImage() {
 	const [geistRegular, geistExtraBold] = await Promise.all([

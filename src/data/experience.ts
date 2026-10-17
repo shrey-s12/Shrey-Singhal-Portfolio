@@ -9,7 +9,7 @@ export const experiences: Experience[] = [
 		timeframe: 'Full-time',
 		description: '',
 		achievements: [],
-		techStack: [],
+		techStack: ['TypeScript', 'Next.js', 'React.js', 'Tailwind CSS', 'Node.js', 'Express', 'SQL' ,'MongoDB'],
 	},
 	{
 		company: 'AppSquadz',
