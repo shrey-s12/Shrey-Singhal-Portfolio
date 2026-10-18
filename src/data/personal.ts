@@ -39,7 +39,7 @@ export const personalInfo: PersonalInfo = {
 
 	resume: '/resume/shrey-singhal-resume.pdf',
 
-	profileImage: '/images/Shrey2.jpeg',
+	profileImage: '/images/Shrey.png',
 
 	availability: 'Software Development Engineer @ GIVA',
 
