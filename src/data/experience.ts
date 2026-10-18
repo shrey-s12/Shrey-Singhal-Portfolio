@@ -2,10 +2,20 @@ import type { Experience } from '@/data/types';
 
 export const experiences: Experience[] = [
 	{
+		company: 'GIVA',
+		location: 'Bengaluru',
+		role: 'Software Development Engineer',
+		duration: 'August 2026 - Present',
+		timeframe: 'Full-time',
+		description: '',
+		achievements: [],
+		techStack: ['TypeScript', 'Next.js', 'React.js', 'Tailwind CSS', 'Node.js', 'Express', 'SQL' ,'MongoDB'],
+	},
+	{
 		company: 'AppSquadz',
 		location: 'Noida',
 		role: 'Software Engineer',
-		duration: 'March 2025 - Present',
+		duration: 'March 2025 - August 2026',
 		timeframe: 'Full-time',
 		description:
 			'Working on scalable backend systems, API development, authentication modules, and performance-focused backend architecture.',

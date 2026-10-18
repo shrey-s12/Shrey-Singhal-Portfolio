@@ -1,8 +1,7 @@
 import type { LeetCodeStats } from '@/data/types';
-import { dsaData } from '@/data/dsa';
+import { getFallbackLeetCodeStats, LEETCODE_USERNAME } from '@/lib/leetcodeFallback';
 
 const LEETCODE_GRAPHQL_ENDPOINT = 'https://leetcode.com/graphql';
-const LEETCODE_USERNAME = 'shrey_s12';
 
 const USER_SESSION_PROGRESS_QUERY = `
   query userSessionProgress($username: String!) {
@@ -148,30 +147,6 @@ async function fetchGraphQL<T>(query: string, variables: Record<string, string>)
   }
 }
 
-function getFallbackStats(): LeetCodeStats {
-  return {
-    username: LEETCODE_USERNAME,
-    ranking: 0,
-    reputation: 0,
-    totalSolved: parseInt(dsaData.totalSolved) || 600,
-    totalQuestions: 3943,
-    easySolved: parseInt(dsaData.easy) || 336,
-    easyTotal: 946,
-    mediumSolved: parseInt(dsaData.medium) || 246,
-    mediumTotal: 2061,
-    hardSolved: parseInt(dsaData.hard) || 31,
-    hardTotal: 936,
-    contestRating: 0,
-    contestAttended: 0,
-    contestGlobalRanking: 0,
-    contestTopPercentage: 0,
-    badges: [],
-    streak: 0,
-    totalActiveDays: 0,
-    submissionCalendar: {},
-  };
-}
-
 export async function fetchLeetCodeStats(): Promise<LeetCodeStats> {
   const [progressData, profileData, streakData] = await Promise.all([
     fetchGraphQL<UserSessionProgressData>(USER_SESSION_PROGRESS_QUERY, { username: LEETCODE_USERNAME }),
@@ -180,7 +155,7 @@ export async function fetchLeetCodeStats(): Promise<LeetCodeStats> {
   ]);
 
   if (!progressData || !progressData.matchedUser) {
-    return getFallbackStats();
+    return getFallbackLeetCodeStats();
   }
 
   // Get total question counts from allQuestionsCount

@@ -1,28 +1,24 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
+
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+
+function subscribe(onChange: () => void): () => void {
+	const mediaQuery = window.matchMedia(REDUCED_MOTION_QUERY);
+	mediaQuery.addEventListener('change', onChange);
+	return () => mediaQuery.removeEventListener('change', onChange);
+}
+
+function getSnapshot(): boolean {
+	return window.matchMedia(REDUCED_MOTION_QUERY).matches;
+}
+
+// The server can't know the user's preference, so it renders the animated version
+function getServerSnapshot(): boolean {
+	return false;
+}
 
 export function useReducedMotion(): boolean {
-	const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(false);
-
-	useEffect(() => {
-		if (typeof window === 'undefined' || !window.matchMedia) {
-			return;
-		}
-
-		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-		setPrefersReducedMotion(mediaQuery.matches);
-
-		const handleChange = (event: MediaQueryListEvent) => {
-			setPrefersReducedMotion(event.matches);
-		};
-
-		mediaQuery.addEventListener('change', handleChange);
-
-		return () => {
-			mediaQuery.removeEventListener('change', handleChange);
-		};
-	}, []);
-
-	return prefersReducedMotion;
+	return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }

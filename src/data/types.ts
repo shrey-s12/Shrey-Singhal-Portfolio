@@ -16,6 +16,7 @@ export interface PersonalInfo {
   name: string;
   shortName: string;
   role: string;
+  roles: string[];
   tagline: string;
   introduction: string;
   description: string;
@@ -26,8 +27,6 @@ export interface PersonalInfo {
   phone: string;
   resume: string;
   profileImage: string;
-  heroImage: string;
-  ogImage: string;
   availability: string;
   focusAreas: string[];
   stats: Stat[];
@@ -76,6 +75,8 @@ export interface Education {
   institution: string;
   degree: string;
   location: string;
+  // Shown as a "start – end" range when present
+  startYear?: number;
   graduationYear: number;
   score: string;
   description: string;

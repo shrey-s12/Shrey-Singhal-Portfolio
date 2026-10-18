@@ -2,8 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { experiences } from '@/data/experience';
-import Badge from '@/components/ui/Badge';
+import TechBadge from '@/components/ui/TechBadge';
 import SectionTitle from '@/components/ui/SectionTitle';
+import SpotlightCard from '@/components/ui/SpotlightCard';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 export default function Experience() {
@@ -43,7 +44,7 @@ export default function Experience() {
 					className="relative mx-auto max-w-4xl"
 				>
 					{/* Timeline line - thicker with glow */}
-					<div className="absolute top-0 bottom-0 left-4 w-0.5 bg-linear-to-b from-[#3B82F6] to-[#8B5CF6] shadow-[0_0_8px_rgba(59,130,246,0.4)] md:left-6" />
+					<div className="absolute top-0 bottom-0 left-4 w-0.5 bg-linear-to-b from-accent to-secondary shadow-[0_0_8px_rgba(59,130,246,0.4)] md:left-6" />
 
 					<div className="space-y-12">
 						{experiences.map((exp) => (
@@ -53,38 +54,44 @@ export default function Experience() {
 								className="relative pl-12 md:pl-16"
 							>
 								{/* Timeline dot - larger with glow */}
-								<div className="absolute left-2 top-2 h-5 w-5 rounded-full border-2 border-[#3B82F6] bg-[#0B0F19] shadow-[0_0_10px_rgba(59,130,246,0.5)] md:left-4" />
+								<div className="absolute left-2 top-2 h-5 w-5 rounded-full border-2 border-accent bg-background shadow-[0_0_10px_rgba(59,130,246,0.5)] md:left-4" />
 
-								<div className="rounded-2xl border border-white/15 bg-[#111827] p-8 shadow-[inset_0_1px_1px_rgba(255,255,255,0.03)]">
+								<SpotlightCard className="rounded-2xl border border-white/15 bg-surface p-8 shadow-[inset_0_1px_1px_rgba(255,255,255,0.03)]">
 									<div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-										<h3 className="text-lg font-semibold text-[#F9FAFB]">{exp.role}</h3>
-										<span className="rounded-full bg-[#3B82F6]/10 px-3 py-1 text-xs text-[#3B82F6]">
+										<h3 className="text-lg font-semibold text-foreground">{exp.role}</h3>
+										<span className="rounded-full bg-accent/10 px-3 py-1 text-xs text-accent">
 											{exp.timeframe}
 										</span>
 									</div>
-									<p className="mb-1 text-base text-[#3B82F6]">{exp.company}</p>
-									<p className="mb-1 text-sm text-[#F9FAFB]/60">
+									<p className="mb-1 text-base text-accent">{exp.company}</p>
+									<p className="mb-1 text-sm text-foreground/60">
 										{exp.location} &middot; {exp.duration}
 									</p>
-									<p className="mb-4 text-sm text-[#F9FAFB]/70">{exp.description}</p>
+									{exp.description && (
+										<p className="text-sm text-foreground/70">{exp.description}</p>
+									)}
 
 									{/* Achievements */}
-									<ul className="mb-4 space-y-2">
-										{exp.achievements.map((achievement) => (
-											<li key={achievement} className="flex items-start gap-2 text-sm text-[#F9FAFB]/70">
-												<span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#3B82F6]" />
-												{achievement}
-											</li>
-										))}
-									</ul>
+									{exp.achievements.length > 0 && (
+										<ul className="mt-4 space-y-2">
+											{exp.achievements.map((achievement) => (
+												<li key={achievement} className="flex items-start gap-2 text-sm text-foreground/70">
+													<span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+													{achievement}
+												</li>
+											))}
+										</ul>
+									)}
 
 									{/* Tech Stack */}
-									<div className="flex flex-wrap gap-2">
-										{exp.techStack.map((tech) => (
-											<Badge key={tech} text={tech} variant="secondary" />
-										))}
-									</div>
-								</div>
+									{exp.techStack.length > 0 && (
+										<div className="mt-4 flex flex-wrap gap-2">
+											{exp.techStack.map((tech) => (
+												<TechBadge key={tech} name={tech} variant="secondary" />
+											))}
+										</div>
+									)}
+								</SpotlightCard>
 							</motion.div>
 						))}
 					</div>

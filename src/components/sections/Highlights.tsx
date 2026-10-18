@@ -46,9 +46,9 @@ export default function Highlights() {
 						<motion.div key={highlight.title} variants={cardVariants}>
 							<GlassCard hover className="relative overflow-hidden p-8">
 								{/* Gradient top border accent */}
-								<div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-[#3B82F6] to-[#8B5CF6]" />
-								<h3 className="mb-3 text-lg font-semibold text-[#F9FAFB]">{highlight.title}</h3>
-								<p className="text-sm leading-relaxed text-[#F9FAFB]/70">{highlight.description}</p>
+								<div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-accent to-secondary" />
+								<h3 className="mb-3 text-lg font-semibold text-foreground">{highlight.title}</h3>
+								<p className="text-sm leading-relaxed text-foreground/70">{highlight.description}</p>
 							</GlassCard>
 						</motion.div>
 					))}

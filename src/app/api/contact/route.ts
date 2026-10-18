@@ -1,58 +1,85 @@
 import { Resend } from 'resend';
+import { contact } from '@/data/contact';
+import { escapeHtml } from '@/lib/escapeHtml';
+import { CONTACT_HONEYPOT_FIELD, validateContactForm, type ContactFormData } from '@/lib/contactForm';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Resend's shared test sender only delivers to the Resend account owner's address.
+// Set CONTACT_FROM_EMAIL to an address on a domain verified in Resend to send from your own domain.
+const DEFAULT_FROM_EMAIL = 'Portfolio Contact <onboarding@resend.dev>';
 
-interface ContactFormData {
-	name: string;
-	email: string;
-	message: string;
+function errorResponse(message: string, status: number): Response {
+	return Response.json({ error: message }, { status });
+}
+
+// Created per request so a missing key fails one request instead of the whole build
+function getResendClient(): Resend | null {
+	const apiKey = process.env.RESEND_API_KEY;
+	return apiKey ? new Resend(apiKey) : null;
+}
+
+function isSpamSubmission(body: unknown): boolean {
+	if (typeof body !== 'object' || body === null) {
+		return false;
+	}
+	const honeypotValue = (body as Record<string, unknown>)[CONTACT_HONEYPOT_FIELD];
+	return typeof honeypotValue === 'string' && honeypotValue.length > 0;
+}
+
+function buildEmailHtml({ name, email, message }: ContactFormData): string {
+	return `
+		<div style="font-family: sans-serif; max-width: 600px;">
+			<h2 style="color: #3B82F6;">New Portfolio Contact</h2>
+			<p><strong>Name:</strong> ${escapeHtml(name)}</p>
+			<p><strong>Email:</strong> ${escapeHtml(email)}</p>
+			<hr style="border: 1px solid #eee; margin: 16px 0;" />
+			<p><strong>Message:</strong></p>
+			<p style="white-space: pre-wrap;">${escapeHtml(message)}</p>
+		</div>
+	`;
 }
 
 export async function POST(request: Request) {
+	let body: unknown;
 	try {
-		const body: ContactFormData = await request.json();
-		const { name, email, message } = body;
+		body = await request.json();
+	} catch {
+		return errorResponse('Invalid request body.', 400);
+	}
 
-		// Validate
-		if (!name || !email || !message) {
-			return Response.json(
-				{ error: 'Name, email, and message are required.' },
-				{ status: 400 }
-			);
-		}
+	// Pretend it worked so bots get no signal that they were caught
+	if (isSpamSubmission(body)) {
+		return Response.json({ success: true });
+	}
 
-		// Send email via Resend
+	const validation = validateContactForm(body);
+	if (!validation.isValid) {
+		return errorResponse(validation.error, 400);
+	}
+
+	const resend = getResendClient();
+	if (!resend) {
+		console.error('Contact API error: RESEND_API_KEY is not set');
+		return errorResponse('Email service is not configured. Please email me directly.', 500);
+	}
+
+	try {
+		const { name, email } = validation.data;
 		const { error } = await resend.emails.send({
-			from: 'Portfolio Contact <onboarding@resend.dev>',
-			to: 'shreynbd@gmail.com',
+			from: process.env.CONTACT_FROM_EMAIL ?? DEFAULT_FROM_EMAIL,
+			to: contact.email,
 			replyTo: email,
 			subject: `Portfolio Contact: ${name}`,
-			html: `
-				<div style="font-family: sans-serif; max-width: 600px;">
-					<h2 style="color: #3B82F6;">New Portfolio Contact</h2>
-					<p><strong>Name:</strong> ${name}</p>
-					<p><strong>Email:</strong> ${email}</p>
-					<hr style="border: 1px solid #eee; margin: 16px 0;" />
-					<p><strong>Message:</strong></p>
-					<p style="white-space: pre-wrap;">${message}</p>
-				</div>
-			`,
+			html: buildEmailHtml(validation.data),
 		});
 
 		if (error) {
 			console.error('Resend error:', error);
-			return Response.json(
-				{ error: 'Failed to send email. Please try again.' },
-				{ status: 500 }
-			);
+			return errorResponse('Failed to send email. Please try again.', 500);
 		}
 
 		return Response.json({ success: true });
 	} catch (err) {
 		console.error('Contact API error:', err);
-		return Response.json(
-			{ error: 'Something went wrong. Please try again.' },
-			{ status: 500 }
-		);
+		return errorResponse('Something went wrong. Please try again.', 500);
 	}
 }

@@ -5,6 +5,7 @@ export const education: Education[] = [
 		institution: 'Moradabad Institute of Technology',
 		degree: 'Bachelor of Technology in Computer Science',
 		location: 'Moradabad, Uttar Pradesh, India',
+		startYear: 2021,
 		graduationYear: 2025,
 		score: '8.2 CGPA',
 		description: 'Studied core computer science concepts, software development, and system design principles.',
